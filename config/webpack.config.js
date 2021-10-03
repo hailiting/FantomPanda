@@ -104,7 +104,7 @@ module.exports = function (webpackEnv) {
             // so that it honors browserslist config in package.json
             // which in turn let's users customize the target behavior as per their needs.
             postcssNormalize(),
-            px2rem({ remUnit: 75 }),
+            px2rem({ remUnit: 198 }),
           ],
           sourceMap: isEnvProduction && shouldUseSourceMap,
         },

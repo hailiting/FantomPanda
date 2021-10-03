@@ -6,21 +6,25 @@ function HeaderWidget() {
   return (
     <div className="header">
       <div className="headerWidget">
-        <h1>
-          <a href={config.preLink + "/"} title="0xLambert">
-            <img src={require("./img/logo.png")} alt="logo" />
-          </a>
-        </h1>
-        <h2>Unique SOULLY</h2>
-        <h3>coming soon</h3>
-        <div className="fr">
-          <a href="https://discord.gg/Dmn7DhDyEZ" title="discord.gg">
-            <img src={require("./img/discord.png")} alt="discord" />
-          </a>
-          <a href="https://twitter.com/SoullyWorld" title="twitter.com">
-            <img src={require("./img/twitter.png")} alt="twitter" />
-          </a>
-        </div>
+        <a href={config.preLink + "/"} title="0xFantomPanda">
+          <img src={require("./img/logo.svg")} alt="logo" />
+          <h2>FantomPandas</h2>
+        </a>
+        <a href="#Story" title="Story">
+          Story
+        </a>
+        <a href="#PandaRaces" title="Panda Races">
+          Panda Races
+        </a>
+        <a href="#Roadmap" title="Roadmap">
+          Roadmap
+        </a>
+        <a href="#Team" title="Team">
+          Team
+        </a>
+        <a href="#FAQ" title="FAQ">
+          FAQ
+        </a>
       </div>
     </div>
   );

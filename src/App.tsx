@@ -1,7 +1,7 @@
 import React from "react";
 import { Redirect, Route, Switch, withRouter } from "react-router";
 import { Routers } from "./routers";
-import "lib-flexible";
+import "./flexible";
 import "./App.less";
 import config from "./config/index";
 function App() {

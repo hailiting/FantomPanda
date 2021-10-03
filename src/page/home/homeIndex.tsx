@@ -1,14 +1,22 @@
 import React from "react";
-import HeaderWidget from "@/components/header/headerWidget";
 import FooterWidget from "@/components/footer/footerWidget";
-import HomeContainer from "./homeContainer/homeContainer";
+import PartOne from "./components/partone";
+import PartTwo from "./components/parttwo";
+import PartThree from "./components/partthree";
+import PartFour from "./components/partfour";
+import PartSix from "./components/partsix";
+import PartSeven from "./components/partseven";
 import "./homeIndex.less";
 
 function HomeIndex() {
   return (
     <div className="homeIndex">
-      <HeaderWidget />
-      <HomeContainer />
+      <PartOne />
+      <PartTwo />
+      <PartThree />
+      <PartFour />
+      <PartSix />
+      <PartSeven />
       <FooterWidget />
     </div>
   );
