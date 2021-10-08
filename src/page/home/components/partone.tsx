@@ -10,6 +10,7 @@ import {
   getAccounts,
   mint,
   preSaleMint,
+  NFTAllow,
 } from "@/services/web3";
 import Toast from "@/components/toast";
 export default function PartOne() {
@@ -125,11 +126,14 @@ export default function PartOne() {
                   account: account,
                 });
               } else {
-                preSaleMint({
-                  numberOfTokens: `${mintValue}`,
-                  price: `${_price}`,
-                  account: account,
-                });
+                const _allow = await NFTAllow();
+                console.log(_allow);
+                return;
+                // preSaleMint({
+                //   numberOfTokens: `${mintValue}`,
+                //   price: `${_price}`,
+                //   account: account,
+                // });
               }
             } else {
               Toast.show("合约还未开启，敬请期待！");
