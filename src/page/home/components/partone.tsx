@@ -127,11 +127,15 @@ export default function PartOne() {
               } else {
                 const _allow = await NFTAllow(account);
                 if (+_allow > 0) {
-                  preSaleMint({
-                    numberOfTokens: `${mintValue}`,
-                    price: `${_price}`,
-                    account: account,
-                  });
+                  if (+_allow >= mintValue) {
+                    preSaleMint({
+                      numberOfTokens: `${mintValue}`,
+                      price: `${_price}`,
+                      account: account,
+                    });
+                  } else {
+                    Toast.show(`You can currently purchase ${_allow} FPDS`);
+                  }
                 } else {
                   Toast.show("No permission!");
                   return false;
