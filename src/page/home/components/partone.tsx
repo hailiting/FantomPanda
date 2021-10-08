@@ -15,7 +15,7 @@ import Toast from "@/components/toast";
 export default function PartOne() {
   const [ERC721Price, setERC721Price] = useState("-");
   const [ERC721State, setERC721State] = useState("0");
-  const [ERC721Max, setERC721Max] = useState("9900");
+  const [ERC721Max, setERC721Max] = useState("1200");
   const [ERC721TotalSupply, setERC721TotalSupply] = useState("0");
   const [mintValue, setMintValue] = useState(1);
   const [accounts, setAccounts] = useState<string[] | null>(null);
@@ -84,7 +84,16 @@ export default function PartOne() {
           <p className="fr">(max. 20 per tx)</p>
         </div>
         <h5>
-          Mint Price: <i>{+ERC721State >= 0 ? `${ERC721Price}FTM` : "TBD"}</i>
+          Mint Price:{" "}
+          <i>
+            {+ERC721State >= 0
+              ? `${
+                  isNaN(+ERC721Price)
+                    ? ERC721Price
+                    : +ERC721Price / Math.pow(10, 18)
+                }FTM`
+              : "TBD"}
+          </i>
         </h5>
         <button
           onClick={async () => {
