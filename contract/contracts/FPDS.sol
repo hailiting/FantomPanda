@@ -14,9 +14,7 @@ contract FPDSNFT is ERC721Enumerable, Ownable {
     uint256 public constant MAX_PANDAS = 1200;
 
     // withdraw addresses
-    address public f1;
-    address public f2;
-    address public f3;
+    address[] public adminList;
 
     // List of addresses that have a number of reserved tokens for presale
     mapping(address => uint256) public preSaleReserved;
@@ -97,19 +95,17 @@ contract FPDSNFT is ERC721Enumerable, Ownable {
     }
 
     function setAddresses(address[] memory _f) public onlyOwner {
-        f1 = _f[0];
-        f2 = _f[1];
-        f3 = _f[2];
+        adminList = _f;
     }
 
-    function withdrawBalance() public payable onlyOwner {
-        uint256 _onePerc = address(this).balance.div(100);
-        uint256 _f1Amt = _onePerc.mul(41);
-        uint256 _f2Amt = _onePerc.mul(50);
-        uint256 _f3Amt = _onePerc.mul(9);
-
-        require(payable(f1).send(_f1Amt));
-        require(payable(f2).send(_f2Amt));
-        require(payable(f3).send(_f3Amt));
+    function withdraw() public onlyOwner {
+        uint256 balance = address(this).balance;
+        uint256 len = adminList.length;
+        if (len > 0) {
+            uint256 _each = balance / adminList.length;
+            for (uint256 i = 0; i < adminList.length; i++) {
+                require(payable(adminList[i]).send(_each));
+            }
+        }
     }
 }
