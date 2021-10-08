@@ -103,7 +103,7 @@ export default function PartOne() {
               setERC721Price(_price);
             }
             if (!ERC721State) {
-              Toast.show("合约还未开启，敬请期待！");
+              Toast.show("The contract has not yet opened, so stay tuned!");
               return false;
             }
             if (
@@ -111,13 +111,12 @@ export default function PartOne() {
               Number(_price) * mintValue
             ) {
               Toast.show(
-                `余额不足, 当前余额${ETHBalance}， NFT价格：${
+                `Insufficient balance, current balance is ${ETHBalance}, NFT price：${
                   Number(_price) / Math.pow(10, 18)
                 }`
               );
               return false;
             }
-            console.log(ERC721State);
             if (+ERC721State > 0) {
               if (+ERC721State > 1) {
                 mint({
@@ -126,17 +125,20 @@ export default function PartOne() {
                   account: account,
                 });
               } else {
-                const _allow = await NFTAllow();
-                console.log(_allow);
-                return;
-                // preSaleMint({
-                //   numberOfTokens: `${mintValue}`,
-                //   price: `${_price}`,
-                //   account: account,
-                // });
+                const _allow = await NFTAllow(account);
+                if (+_allow > 0) {
+                  preSaleMint({
+                    numberOfTokens: `${mintValue}`,
+                    price: `${_price}`,
+                    account: account,
+                  });
+                } else {
+                  Toast.show("No permission!");
+                  return false;
+                }
               }
             } else {
-              Toast.show("合约还未开启，敬请期待！");
+              Toast.show("The contract has not yet opened, so stay tuned!");
               return false;
             }
           }}

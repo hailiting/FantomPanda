@@ -1,4 +1,4 @@
 export default {
-  nftAddress: "0xF058B63A02103abce9cc9eB8A40f8b90c096B1F6",
+  nftAddress: "0x304D835e60737b8F952dc1b7F145eB018D026cB8",
   preLink: "/FantomPanda",
 };

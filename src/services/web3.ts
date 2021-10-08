@@ -216,9 +216,9 @@ async function ERC721_state(): Promise<string> {
   const abi = new window.web3.eth.Contract(FPDS, nftAddress);
   return abi.methods.saleState().call();
 }
-async function ERC721_preSaleReserved(): Promise<string> {
+async function ERC721_preSaleReserved(account: string): Promise<string> {
   const abi = new window.web3.eth.Contract(FPDS, nftAddress);
-  return abi.methods.preSaleReserved().call();
+  return abi.methods.preSaleReserved(account).call();
 }
 async function ERC721_Max(): Promise<string> {
   const abi = new window.web3.eth.Contract(FPDS, nftAddress);
@@ -325,8 +325,8 @@ export async function NFTState(): Promise<string> {
   return ERC721_state();
 }
 // 是否有权限购买
-export async function NFTAllow(): Promise<string> {
-  return ERC721_preSaleReserved();
+export async function NFTAllow(account: string): Promise<string> {
+  return ERC721_preSaleReserved(account);
 }
 export async function NFTMax(): Promise<string> {
   return ERC721_Max();
