@@ -101,7 +101,7 @@ export default function PartOne() {
             if (_price !== ERC721Price) {
               setERC721Price(_price);
             }
-            if (!NFTState) {
+            if (!ERC721State) {
               Toast.show("合约还未开启，敬请期待！");
               return false;
             }
@@ -116,8 +116,9 @@ export default function PartOne() {
               );
               return false;
             }
-            if (+NFTState > 0) {
-              if (+NFTState > 1) {
+            console.log(ERC721State);
+            if (+ERC721State > 0) {
+              if (+ERC721State > 1) {
                 mint({
                   numberOfTokens: `${mintValue}`,
                   price: `${_price}`,
@@ -130,6 +131,9 @@ export default function PartOne() {
                   account: account,
                 });
               }
+            } else {
+              Toast.show("合约还未开启，敬请期待！");
+              return false;
             }
           }}
         >

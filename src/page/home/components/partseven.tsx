@@ -70,7 +70,7 @@ export default function PartSeven() {
       <h2>Time to get the FAQs</h2>
       <ul>
         {liList.map((v: LiListItem, index: number) => (
-          <li>
+          <li key={index}>
             <div className="title">
               <h3>{v.title}</h3>
               <div
@@ -91,8 +91,8 @@ export default function PartSeven() {
             </div>
             {index === liIndex ? (
               <div className="inner">
-                {v.details.map((v) => (
-                  <p>{v}</p>
+                {v.details.map((v, index) => (
+                  <p key={index}>{v}</p>
                 ))}
               </div>
             ) : null}

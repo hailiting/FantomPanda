@@ -58,6 +58,7 @@ export default function PartThree() {
             "Lords",
           ].map((v: string, index: number) => (
             <li
+              key={index}
               className={index === liIndex ? "onLi" : ""}
               onClick={() => {
                 setLiIndex(index);
@@ -74,7 +75,7 @@ export default function PartThree() {
           <div className="fr">
             <h4>{liList[liIndex].title}</h4>
             {liList[liIndex].details.map((v) => (
-              <p>{v}</p>
+              <p key={v}>{v}</p>
             ))}
             <ul>
               <li>
