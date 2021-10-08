@@ -81,7 +81,7 @@ export default function PartOne() {
               }
             }}
           />
-          <p className="fr">(max. 20 per tx)</p>
+          <p className="fr">(max. 10 per tx)</p>
         </div>
         <h5>
           Mint Price:{" "}
@@ -91,7 +91,7 @@ export default function PartOne() {
                   isNaN(+ERC721Price)
                     ? ERC721Price
                     : +ERC721Price / Math.pow(10, 18)
-                }FTM`
+                } FTM`
               : "TBD"}
           </i>
         </h5>
