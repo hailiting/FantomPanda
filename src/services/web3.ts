@@ -1,4 +1,3 @@
-import Portis from "@portis/web3";
 import Web3 from "web3";
 
 import config from "@/config/index";
@@ -21,12 +20,6 @@ declare global {
 if (window.ethereum) {
   window.web3 = new Web3(window.ethereum);
   window.ethereum.enable(); // should wait?
-}
-
-if (!window.web3) {
-  const DAPP_ID = "a0fa4f71-2d8e-4a67-baa6-33ab41c3ba26";
-  const portis = new Portis(DAPP_ID, "mainnet");
-  window.web3 = new Web3(portis.provider);
 }
 
 const web3 = new Web3(window.web3.currentProvider);

@@ -76,6 +76,7 @@ export default function PartOne() {
         <div className="input">
           <p>Quantity:</p>
           <input
+            value={mintValue}
             onChange={(e) => {
               if (!isNaN(Number(e.target.value))) {
                 setMintValue(Number(e.target.value));
