@@ -1,3 +1,4 @@
+import Portis from "@portis/web3";
 import Web3 from "web3";
 
 import config from "@/config/index";
@@ -21,27 +22,29 @@ if (window.ethereum) {
   window.web3 = new Web3(window.ethereum);
   window.ethereum.enable(); // should wait?
 }
-
-const web3 = new Web3(window.web3.currentProvider);
-
-const NFTFY_CONTRACT_RINKEBY = "0xc0D1946C1754d2F94dE4Cf52deF7162f6611316D";
+if (!window.web3) {
+  const DAPP_ID = "a0fa4f71-2d8e-4a67-baa6-33ab41c3ba26";
+  const portis = new Portis(DAPP_ID, "mainnet");
+  window.web3 = new Web3(portis.provider);
+}
+const web3 = new Web3(window?.web3?.currentProvider);
 
 // const ERC721_METADATA_INTERFACE_ID = '0x5b5e139f';
 const ERC721_INTERFACE_ID = "0x80ac58cd";
 // const ERC721_ENUMERABLE_INTERFACE_ID = '0x780e9d63';
 
-export async function getNftfyContract(): Promise<string> {
-  const network = await web3.eth.net.getNetworkType();
-  switch (network) {
-    // TODO main
-    case "main":
-      return "0x97fb1e97A05aF8ff862C7f5fA9e28C716660d632";
-    case "rinkeby":
-      return NFTFY_CONTRACT_RINKEBY;
-    default:
-      throw new Error("Unsupported network");
-  }
-}
+// export async function getNftfyContract(): Promise<string> {
+//   const network = await web3.eth.net.getNetworkType();
+//   switch (network) {
+//     // TODO main
+//     case "main":
+//       return "0x97fb1e97A05aF8ff862C7f5fA9e28C716660d632";
+//     case "rinkeby":
+//       return NFTFY_CONTRACT_RINKEBY;
+//     default:
+//       throw new Error("Unsupported network");
+//   }
+// }
 
 function toCents(amount: string, decimals: number): string {
   return (Number(amount) * 10 ** decimals).toFixed(0);
