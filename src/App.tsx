@@ -3,6 +3,7 @@ import { Redirect, Route, Switch, withRouter } from "react-router";
 import { Routers } from "./routers";
 import "./flexible";
 import "./App.less";
+import "./styles/animate.min.css";
 import config from "./config/index";
 function App() {
   return (

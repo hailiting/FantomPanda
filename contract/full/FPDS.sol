@@ -965,196 +965,6 @@ contract ERC721 is Context, ERC165, IERC721, IERC721Metadata {
     ) internal virtual {}
 }
 
-// File: @openzeppelin/contracts/token/ERC721/extensions/IERC721Enumerable.sol
-
-pragma solidity ^0.8.0;
-
-
-/**
- * @title ERC-721 Non-Fungible Token Standard, optional enumeration extension
- * @dev See https://eips.ethereum.org/EIPS/eip-721
- */
-interface IERC721Enumerable is IERC721 {
-    /**
-     * @dev Returns the total amount of tokens stored by the contract.
-     */
-    function totalSupply() external view returns (uint256);
-
-    /**
-     * @dev Returns a token ID owned by `owner` at a given `index` of its token list.
-     * Use along with {balanceOf} to enumerate all of ``owner``'s tokens.
-     */
-    function tokenOfOwnerByIndex(address owner, uint256 index) external view returns (uint256 tokenId);
-
-    /**
-     * @dev Returns a token ID at a given `index` of all the tokens stored by the contract.
-     * Use along with {totalSupply} to enumerate all tokens.
-     */
-    function tokenByIndex(uint256 index) external view returns (uint256);
-}
-
-// File: @openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol
-
-pragma solidity ^0.8.0;
-
-
-
-/**
- * @dev This implements an optional extension of {ERC721} defined in the EIP that adds
- * enumerability of all the token ids in the contract as well as all token ids owned by each
- * account.
- */
-abstract contract ERC721Enumerable is ERC721, IERC721Enumerable {
-    // Mapping from owner to list of owned token IDs
-    mapping(address => mapping(uint256 => uint256)) private _ownedTokens;
-
-    // Mapping from token ID to index of the owner tokens list
-    mapping(uint256 => uint256) private _ownedTokensIndex;
-
-    // Array with all token ids, used for enumeration
-    uint256[] private _allTokens;
-
-    // Mapping from token id to position in the allTokens array
-    mapping(uint256 => uint256) private _allTokensIndex;
-
-    /**
-     * @dev See {IERC165-supportsInterface}.
-     */
-    function supportsInterface(bytes4 interfaceId) public view virtual override(IERC165, ERC721) returns (bool) {
-        return interfaceId == type(IERC721Enumerable).interfaceId || super.supportsInterface(interfaceId);
-    }
-
-    /**
-     * @dev See {IERC721Enumerable-tokenOfOwnerByIndex}.
-     */
-    function tokenOfOwnerByIndex(address owner, uint256 index) public view virtual override returns (uint256) {
-        require(index < ERC721.balanceOf(owner), "ERC721Enumerable: owner index out of bounds");
-        return _ownedTokens[owner][index];
-    }
-
-    /**
-     * @dev See {IERC721Enumerable-totalSupply}.
-     */
-    function totalSupply() public view virtual override returns (uint256) {
-        return _allTokens.length;
-    }
-
-    /**
-     * @dev See {IERC721Enumerable-tokenByIndex}.
-     */
-    function tokenByIndex(uint256 index) public view virtual override returns (uint256) {
-        require(index < ERC721Enumerable.totalSupply(), "ERC721Enumerable: global index out of bounds");
-        return _allTokens[index];
-    }
-
-    /**
-     * @dev Hook that is called before any token transfer. This includes minting
-     * and burning.
-     *
-     * Calling conditions:
-     *
-     * - When `from` and `to` are both non-zero, ``from``'s `tokenId` will be
-     * transferred to `to`.
-     * - When `from` is zero, `tokenId` will be minted for `to`.
-     * - When `to` is zero, ``from``'s `tokenId` will be burned.
-     * - `from` cannot be the zero address.
-     * - `to` cannot be the zero address.
-     *
-     * To learn more about hooks, head to xref:ROOT:extending-contracts.adoc#using-hooks[Using Hooks].
-     */
-    function _beforeTokenTransfer(
-        address from,
-        address to,
-        uint256 tokenId
-    ) internal virtual override {
-        super._beforeTokenTransfer(from, to, tokenId);
-
-        if (from == address(0)) {
-            _addTokenToAllTokensEnumeration(tokenId);
-        } else if (from != to) {
-            _removeTokenFromOwnerEnumeration(from, tokenId);
-        }
-        if (to == address(0)) {
-            _removeTokenFromAllTokensEnumeration(tokenId);
-        } else if (to != from) {
-            _addTokenToOwnerEnumeration(to, tokenId);
-        }
-    }
-
-    /**
-     * @dev Private function to add a token to this extension's ownership-tracking data structures.
-     * @param to address representing the new owner of the given token ID
-     * @param tokenId uint256 ID of the token to be added to the tokens list of the given address
-     */
-    function _addTokenToOwnerEnumeration(address to, uint256 tokenId) private {
-        uint256 length = ERC721.balanceOf(to);
-        _ownedTokens[to][length] = tokenId;
-        _ownedTokensIndex[tokenId] = length;
-    }
-
-    /**
-     * @dev Private function to add a token to this extension's token tracking data structures.
-     * @param tokenId uint256 ID of the token to be added to the tokens list
-     */
-    function _addTokenToAllTokensEnumeration(uint256 tokenId) private {
-        _allTokensIndex[tokenId] = _allTokens.length;
-        _allTokens.push(tokenId);
-    }
-
-    /**
-     * @dev Private function to remove a token from this extension's ownership-tracking data structures. Note that
-     * while the token is not assigned a new owner, the `_ownedTokensIndex` mapping is _not_ updated: this allows for
-     * gas optimizations e.g. when performing a transfer operation (avoiding double writes).
-     * This has O(1) time complexity, but alters the order of the _ownedTokens array.
-     * @param from address representing the previous owner of the given token ID
-     * @param tokenId uint256 ID of the token to be removed from the tokens list of the given address
-     */
-    function _removeTokenFromOwnerEnumeration(address from, uint256 tokenId) private {
-        // To prevent a gap in from's tokens array, we store the last token in the index of the token to delete, and
-        // then delete the last slot (swap and pop).
-
-        uint256 lastTokenIndex = ERC721.balanceOf(from) - 1;
-        uint256 tokenIndex = _ownedTokensIndex[tokenId];
-
-        // When the token to delete is the last token, the swap operation is unnecessary
-        if (tokenIndex != lastTokenIndex) {
-            uint256 lastTokenId = _ownedTokens[from][lastTokenIndex];
-
-            _ownedTokens[from][tokenIndex] = lastTokenId; // Move the last token to the slot of the to-delete token
-            _ownedTokensIndex[lastTokenId] = tokenIndex; // Update the moved token's index
-        }
-
-        // This also deletes the contents at the last position of the array
-        delete _ownedTokensIndex[tokenId];
-        delete _ownedTokens[from][lastTokenIndex];
-    }
-
-    /**
-     * @dev Private function to remove a token from this extension's token tracking data structures.
-     * This has O(1) time complexity, but alters the order of the _allTokens array.
-     * @param tokenId uint256 ID of the token to be removed from the tokens list
-     */
-    function _removeTokenFromAllTokensEnumeration(uint256 tokenId) private {
-        // To prevent a gap in the tokens array, we store the last token in the index of the token to delete, and
-        // then delete the last slot (swap and pop).
-
-        uint256 lastTokenIndex = _allTokens.length - 1;
-        uint256 tokenIndex = _allTokensIndex[tokenId];
-
-        // When the token to delete is the last token, the swap operation is unnecessary. However, since this occurs so
-        // rarely (when the last minted token is burnt) that we still do the swap here to avoid the gas cost of adding
-        // an 'if' statement (like in _removeTokenFromOwnerEnumeration)
-        uint256 lastTokenId = _allTokens[lastTokenIndex];
-
-        _allTokens[tokenIndex] = lastTokenId; // Move the last token to the slot of the to-delete token
-        _allTokensIndex[lastTokenId] = tokenIndex; // Update the moved token's index
-
-        // This also deletes the contents at the last position of the array
-        delete _allTokensIndex[tokenId];
-        _allTokens.pop();
-    }
-}
-
 // File: @openzeppelin/contracts/access/Ownable.sol
 
 pragma solidity ^0.8.0;
@@ -1453,6 +1263,196 @@ library SafeMath {
     }
 }
 
+// File: @openzeppelin/contracts/token/ERC721/extensions/IERC721Enumerable.sol
+
+pragma solidity ^0.8.0;
+
+
+/**
+ * @title ERC-721 Non-Fungible Token Standard, optional enumeration extension
+ * @dev See https://eips.ethereum.org/EIPS/eip-721
+ */
+interface IERC721Enumerable is IERC721 {
+    /**
+     * @dev Returns the total amount of tokens stored by the contract.
+     */
+    function totalSupply() external view returns (uint256);
+
+    /**
+     * @dev Returns a token ID owned by `owner` at a given `index` of its token list.
+     * Use along with {balanceOf} to enumerate all of ``owner``'s tokens.
+     */
+    function tokenOfOwnerByIndex(address owner, uint256 index) external view returns (uint256 tokenId);
+
+    /**
+     * @dev Returns a token ID at a given `index` of all the tokens stored by the contract.
+     * Use along with {totalSupply} to enumerate all tokens.
+     */
+    function tokenByIndex(uint256 index) external view returns (uint256);
+}
+
+// File: @openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol
+
+pragma solidity ^0.8.0;
+
+
+
+/**
+ * @dev This implements an optional extension of {ERC721} defined in the EIP that adds
+ * enumerability of all the token ids in the contract as well as all token ids owned by each
+ * account.
+ */
+abstract contract ERC721Enumerable is ERC721, IERC721Enumerable {
+    // Mapping from owner to list of owned token IDs
+    mapping(address => mapping(uint256 => uint256)) private _ownedTokens;
+
+    // Mapping from token ID to index of the owner tokens list
+    mapping(uint256 => uint256) private _ownedTokensIndex;
+
+    // Array with all token ids, used for enumeration
+    uint256[] private _allTokens;
+
+    // Mapping from token id to position in the allTokens array
+    mapping(uint256 => uint256) private _allTokensIndex;
+
+    /**
+     * @dev See {IERC165-supportsInterface}.
+     */
+    function supportsInterface(bytes4 interfaceId) public view virtual override(IERC165, ERC721) returns (bool) {
+        return interfaceId == type(IERC721Enumerable).interfaceId || super.supportsInterface(interfaceId);
+    }
+
+    /**
+     * @dev See {IERC721Enumerable-tokenOfOwnerByIndex}.
+     */
+    function tokenOfOwnerByIndex(address owner, uint256 index) public view virtual override returns (uint256) {
+        require(index < ERC721.balanceOf(owner), "ERC721Enumerable: owner index out of bounds");
+        return _ownedTokens[owner][index];
+    }
+
+    /**
+     * @dev See {IERC721Enumerable-totalSupply}.
+     */
+    function totalSupply() public view virtual override returns (uint256) {
+        return _allTokens.length;
+    }
+
+    /**
+     * @dev See {IERC721Enumerable-tokenByIndex}.
+     */
+    function tokenByIndex(uint256 index) public view virtual override returns (uint256) {
+        require(index < ERC721Enumerable.totalSupply(), "ERC721Enumerable: global index out of bounds");
+        return _allTokens[index];
+    }
+
+    /**
+     * @dev Hook that is called before any token transfer. This includes minting
+     * and burning.
+     *
+     * Calling conditions:
+     *
+     * - When `from` and `to` are both non-zero, ``from``'s `tokenId` will be
+     * transferred to `to`.
+     * - When `from` is zero, `tokenId` will be minted for `to`.
+     * - When `to` is zero, ``from``'s `tokenId` will be burned.
+     * - `from` cannot be the zero address.
+     * - `to` cannot be the zero address.
+     *
+     * To learn more about hooks, head to xref:ROOT:extending-contracts.adoc#using-hooks[Using Hooks].
+     */
+    function _beforeTokenTransfer(
+        address from,
+        address to,
+        uint256 tokenId
+    ) internal virtual override {
+        super._beforeTokenTransfer(from, to, tokenId);
+
+        if (from == address(0)) {
+            _addTokenToAllTokensEnumeration(tokenId);
+        } else if (from != to) {
+            _removeTokenFromOwnerEnumeration(from, tokenId);
+        }
+        if (to == address(0)) {
+            _removeTokenFromAllTokensEnumeration(tokenId);
+        } else if (to != from) {
+            _addTokenToOwnerEnumeration(to, tokenId);
+        }
+    }
+
+    /**
+     * @dev Private function to add a token to this extension's ownership-tracking data structures.
+     * @param to address representing the new owner of the given token ID
+     * @param tokenId uint256 ID of the token to be added to the tokens list of the given address
+     */
+    function _addTokenToOwnerEnumeration(address to, uint256 tokenId) private {
+        uint256 length = ERC721.balanceOf(to);
+        _ownedTokens[to][length] = tokenId;
+        _ownedTokensIndex[tokenId] = length;
+    }
+
+    /**
+     * @dev Private function to add a token to this extension's token tracking data structures.
+     * @param tokenId uint256 ID of the token to be added to the tokens list
+     */
+    function _addTokenToAllTokensEnumeration(uint256 tokenId) private {
+        _allTokensIndex[tokenId] = _allTokens.length;
+        _allTokens.push(tokenId);
+    }
+
+    /**
+     * @dev Private function to remove a token from this extension's ownership-tracking data structures. Note that
+     * while the token is not assigned a new owner, the `_ownedTokensIndex` mapping is _not_ updated: this allows for
+     * gas optimizations e.g. when performing a transfer operation (avoiding double writes).
+     * This has O(1) time complexity, but alters the order of the _ownedTokens array.
+     * @param from address representing the previous owner of the given token ID
+     * @param tokenId uint256 ID of the token to be removed from the tokens list of the given address
+     */
+    function _removeTokenFromOwnerEnumeration(address from, uint256 tokenId) private {
+        // To prevent a gap in from's tokens array, we store the last token in the index of the token to delete, and
+        // then delete the last slot (swap and pop).
+
+        uint256 lastTokenIndex = ERC721.balanceOf(from) - 1;
+        uint256 tokenIndex = _ownedTokensIndex[tokenId];
+
+        // When the token to delete is the last token, the swap operation is unnecessary
+        if (tokenIndex != lastTokenIndex) {
+            uint256 lastTokenId = _ownedTokens[from][lastTokenIndex];
+
+            _ownedTokens[from][tokenIndex] = lastTokenId; // Move the last token to the slot of the to-delete token
+            _ownedTokensIndex[lastTokenId] = tokenIndex; // Update the moved token's index
+        }
+
+        // This also deletes the contents at the last position of the array
+        delete _ownedTokensIndex[tokenId];
+        delete _ownedTokens[from][lastTokenIndex];
+    }
+
+    /**
+     * @dev Private function to remove a token from this extension's token tracking data structures.
+     * This has O(1) time complexity, but alters the order of the _allTokens array.
+     * @param tokenId uint256 ID of the token to be removed from the tokens list
+     */
+    function _removeTokenFromAllTokensEnumeration(uint256 tokenId) private {
+        // To prevent a gap in the tokens array, we store the last token in the index of the token to delete, and
+        // then delete the last slot (swap and pop).
+
+        uint256 lastTokenIndex = _allTokens.length - 1;
+        uint256 tokenIndex = _allTokensIndex[tokenId];
+
+        // When the token to delete is the last token, the swap operation is unnecessary. However, since this occurs so
+        // rarely (when the last minted token is burnt) that we still do the swap here to avoid the gas cost of adding
+        // an 'if' statement (like in _removeTokenFromOwnerEnumeration)
+        uint256 lastTokenId = _allTokens[lastTokenIndex];
+
+        _allTokens[tokenIndex] = lastTokenId; // Move the last token to the slot of the to-delete token
+        _allTokensIndex[lastTokenId] = tokenIndex; // Update the moved token's index
+
+        // This also deletes the contents at the last position of the array
+        delete _allTokensIndex[tokenId];
+        _allTokens.pop();
+    }
+}
+
 // File: contracts/FPDS.sol
 
 pragma solidity ^0.8.0;
@@ -1460,37 +1460,102 @@ pragma solidity ^0.8.0;
 
 
 
+
 contract FPDSNFT is ERC721Enumerable, Ownable {
     using SafeMath for uint256;
-
-    string public baseTokenURI;
-    uint256 public price = 0.05 ether;
-    uint256 public saleState = 0; // 0 = paused, 1 = presale, 2 = live
-    uint256 public constant MAX_PANDAS = 1200;
-
-    // withdraw addresses
+    uint256 public price = 50000000000000000; // 0.05 ETH
+    uint256 public maxPurchase = 10;
+    uint256 public MAX_PANDAS = 1200;
+    uint256 public _reserved = 10;
+    string public _baseTokenURI;
+    address admin;
     address[] public adminList;
+    mapping(address => bool) public admins;
 
+    bool public reserved = false;
+    bool public allFrozen;
+    mapping(uint256 => bool) frozenIds;
+    // Optional mapping for token URIs
+    mapping(uint256 => string) private _tokenURIs;
+    event PriceChanged(uint256 price);
+    event MaxTokenAmountChanged(uint256 value);
+    event MaxPurchaseChanged(uint256 value);
+    event PandasReserved();
+    event PermanentURI(string _value, uint256 indexed _id);
+
+    uint256 public saleState = 0; // 0 = paused, 1 = presale, 2 = live
     // List of addresses that have a number of reserved tokens for presale
     mapping(address => uint256) public preSaleReserved;
 
-    constructor(string memory baseURI) ERC721("FantomPandas", "FPDS") {
-        setBaseURI(baseURI);
+    modifier onReserve() {
+        require(!reserved, "Tokens reserved");
+        _;
+        reserved = true;
+        emit PandasReserved();
     }
 
-    // Override so the openzeppelin tokenURI() method will use this method to create the full tokenURI instead
-    function _baseURI() internal view virtual override returns (string memory) {
-        return baseTokenURI;
+    modifier onlyAdmin() {
+        require(admins[msg.sender], "Not admin");
+        _;
+    }
+
+    constructor(address[] memory _admin) ERC721("FantomPandas", "FPDS") {
+        for (uint256 i = 0; i < _admin.length; i++) {
+            admins[_admin[i]] = true;
+        }
+        adminList = _admin;
+    }
+
+    function withdraw() public onlyAdmin {
+        uint256 balance = address(this).balance;
+        uint256 _each = balance / adminList.length;
+        for (uint256 i = 0; i < adminList.length; i++) {
+            require(payable(adminList[i]).send(_each));
+        }
+    }
+
+    // Edit reserved presale spots
+    function setPreSaleWhitelist(address[] memory _a) public onlyOwner {
+        for (uint256 i; i < _a.length; i++) {
+            preSaleReserved[_a[i]] = 10;
+        }
+    }
+
+    function reservePandas(address _to, uint256 _amount)
+        external
+        onlyAdmin
+        onReserve
+    {
+        require(_amount <= _reserved, "Exceeds reserved Cat supply");
+
+        uint256 supply = totalSupply();
+        for (uint256 i; i < _amount; i++) {
+            _safeMint(_to, supply + i);
+        }
+
+        _reserved -= _amount;
+    }
+
+    function flipSaleState(uint256 _saleState) public onlyAdmin {
+        saleState = _saleState;
     }
 
     function mint(uint256 num) public payable {
         uint256 supply = totalSupply();
         require(saleState > 1, "Sale not live");
-        require(num < 10, "You can mint a maximum of 10 fantastic Pandas");
-        require(supply + num <= MAX_PANDAS, "Exceeds maximum Pandas supply");
-        require(msg.value >= price * num, "Ether sent is not correct");
-
+        require(num > 0, "Cannot buy 0");
+        require(
+            num < maxPurchase + 1,
+            "Exceeds max number of Pandas in one transaction"
+        );
+        require(
+            supply + num < MAX_PANDAS - _reserved,
+            "Purchase would exceed max supply of Pandas"
+        );
+        require(price.mul(num) <= msg.value, "Ether value sent is not correct");
+        uint256 mintIndex;
         for (uint256 i; i < num; i++) {
+            mintIndex = supply + i;
             _safeMint(msg.sender, supply + i);
         }
     }
@@ -1523,44 +1588,75 @@ contract FPDSNFT is ERC721Enumerable, Ownable {
         return tokensId;
     }
 
-    // Edit reserved presale spots
-    function setPreSaleWhitelist(address[] memory _a) public onlyOwner {
-        for (uint256 i; i < _a.length; i++) {
-            preSaleReserved[_a[i]] = 10;
-        }
+    function getMyAssets(address _owner, uint256 index)
+        public
+        view
+        returns (uint256)
+    {
+        uint256 tokensId = tokenOfOwnerByIndex(_owner, index);
+        return tokensId;
     }
 
-    function setPrice(uint256 _newPrice) public onlyOwner {
-        price = _newPrice;
+    function setTokenURI(uint256 tokenId, string memory _tokenURI)
+        external
+        onlyAdmin
+    {
+        require(!allFrozen && !frozenIds[tokenId], "Already frozen");
+        _tokenURIs[tokenId] = _tokenURI;
     }
 
-    function setBaseURI(string memory baseURI) public onlyOwner {
-        baseTokenURI = baseURI;
+    function setBaseTokenURI(string memory baseTokenURI_) external onlyAdmin {
+        require(!allFrozen, "Already frozen");
+        _baseTokenURI = baseTokenURI_;
     }
 
-    function giveAway(address _to, uint256 _num) external onlyOwner {
-        uint256 supply = totalSupply();
-        for (uint256 i; i < _num; i++) {
-            _safeMint(_to, supply + i);
-        }
+    function _baseURI() internal view virtual override returns (string memory) {
+        return _baseTokenURI;
     }
 
-    function setSaleState(uint256 _saleState) public onlyOwner {
-        saleState = _saleState;
+    function setPrice(uint256 _price) external onlyAdmin {
+        require(_price > 0, "Zero price");
+
+        price = _price;
+        emit PriceChanged(_price);
     }
 
-    function setAddresses(address[] memory _f) public onlyOwner {
-        adminList = _f;
+    function setMaxTokenAmount(uint256 _value) external onlyAdmin {
+        require(
+            _value > totalSupply() && _value <= 10_000,
+            "Wrong value for max supply"
+        );
+
+        MAX_PANDAS = _value;
+        emit MaxTokenAmountChanged(_value);
     }
 
-    function withdraw() public onlyOwner {
-        uint256 balance = address(this).balance;
-        uint256 len = adminList.length;
-        if (len > 0) {
-            uint256 _each = balance / adminList.length;
-            for (uint256 i = 0; i < adminList.length; i++) {
-                require(payable(adminList[i]).send(_each));
-            }
-        }
+    function setMaxPurchase(uint256 _value) external onlyAdmin {
+        require(_value > 0, "Very low value");
+
+        maxPurchase = _value;
+        emit MaxPurchaseChanged(_value);
+    }
+
+    function setReserveAmount(uint256 __reserved) external onlyAdmin {
+        _reserved = __reserved;
+    }
+
+    function enableAdmin(address _addr) external onlyOwner {
+        admins[_addr] = true;
+    }
+
+    function disableAdmin(address _addr) external onlyOwner {
+        admins[_addr] = false;
+    }
+
+    function freezeAll() external onlyOwner {
+        allFrozen = true;
+    }
+
+    function freeze(uint256 tokenId) external onlyOwner {
+        frozenIds[tokenId] = true;
+
+        emit PermanentURI(tokenURI(tokenId), tokenId);
     }
 }

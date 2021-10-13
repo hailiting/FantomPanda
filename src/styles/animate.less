@@ -1,0 +1,177 @@
+// Opacity
+.opacity(@opacity) {
+  opacity: @opacity / 100;
+  filter: ~"alpha(opacity=@{opacity})";
+}
+// Transitions
+.transition(@transition) {
+  -webkit-transition: @transition;
+  -moz-transition: @transition;
+  -o-transition: @transition;
+  transition: @transition;
+}
+.animate-fadeIn(@time: 1s; @from: 0; @to: 100; @delay: 0s;) {
+  -webkit-animation: animate-fadeIn @time @delay;
+  -moz-animation: animate-fadeIn @time @delay;
+  -o-animation: animate-fadeIn @time @delay;
+  animation: animate-fadeIn @time @delay;
+
+  @-webkit-keyframes animate-fadeIn {
+    from {
+      .opacity(@from);
+    }
+    to {
+      .opacity(@to);
+    }
+  }
+  @-moz-keyframes animate-fadeIn {
+    from {
+      .opacity(@from);
+    }
+    to {
+      .opacity(@to);
+    }
+  }
+  @-o-keyframes animate-fadeIn {
+    from {
+      .opacity(@from);
+    }
+    to {
+      .opacity(@to);
+    }
+  }
+  @keyframes animate-fadeIn {
+    from {
+      .opacity(@from);
+    }
+    to {
+      .opacity(@to);
+    }
+  }
+}
+
+.animate-fadeOut(@time: 1s; @from: 100; @to: 0; @delay: 0s;) {
+  -webkit-animation: animate-fadeOut @time @delay;
+  -moz-animation: animate-fadeOut @time @delay;
+  -o-animation: animate-fadeOut @time @delay;
+  animation: animate-fadeOut @time @delay;
+
+  @-webkit-keyframes animate-fadeOut {
+    from {
+      .opacity(@from);
+    }
+    to {
+      .opacity(@to);
+    }
+  }
+  @-moz-keyframes animate-fadeOut {
+    from {
+      .opacity(@from);
+    }
+    to {
+      .opacity(@to);
+    }
+  }
+  @-o-keyframes animate-fadeOut {
+    from {
+      .opacity(@from);
+    }
+    to {
+      .opacity(@to);
+    }
+  }
+  @keyframes animate-fadeOut {
+    from {
+      .opacity(@from);
+    }
+    to {
+      .opacity(@to);
+    }
+  }
+}
+
+.animate-swingIn(@time: 1s; @delay: 0s;) {
+  -webkit-animation: animate-swingIn @time @delay;
+  animation: animate-swingIn @time @delay;
+
+  -webkit-animation-timing-function: ease-in-out;
+  animation-timing-function: ease-in-out;
+
+  @-webkit-keyframes animate-swingIn {
+    from {
+      .translate3d(0, 1000px, 0);
+    }
+    to {
+      .translate3d(0, 0, 0);
+    }
+  }
+
+  @keyframes animate-swingIn {
+    from {
+      .translate3d(0, 1000px, 0);
+    }
+    to {
+      .translate3d(0, 0, 0);
+    }
+  }
+}
+
+// React Transitions
+
+.fadeIn-enter {
+  .opacity(1);
+  .transition(opacity 500ms ease-in-out);
+}
+
+.fadeIn-enter.fadeIn-enter-active {
+  .opacity(100);
+}
+
+.fadeIn-leave {
+  .opacity(100);
+  .transition(opacity 100ms);
+}
+
+.fadeIn-leave.fadeIn-leave-active {
+  .opacity(1);
+}
+
+.animate-background() {
+  -webkit-animation: movebg 10s infinite;
+  -moz-animation: movebg 10s infinite;
+  -o-animation: movebg 10s infinite;
+  animation: movebg 10s infinite;
+
+  @-webkit-keyframes movebg {
+    from {
+      background-position: 0 0;
+    }
+    to {
+      background-position: 100% 100%;
+    }
+  }
+  @-moz-keyframes movebg {
+    from {
+      background-position: 0 0;
+    }
+    to {
+      background-position: 100% 100%;
+    }
+  }
+  @-o-keyframes movebg {
+    from {
+      background-position: 0 0;
+    }
+    to {
+      background-position: 100% 100%;
+    }
+  }
+  @keyframes movebg {
+    from {
+      background-position: 0 0;
+    }
+    to {
+      background-position: 100% 100%;
+    }
+  }
+}

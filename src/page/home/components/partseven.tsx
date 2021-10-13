@@ -70,7 +70,11 @@ export default function PartSeven() {
       <h2>Time to get the FAQs</h2>
       <ul>
         {liList.map((v: LiListItem, index: number) => (
-          <li key={index}>
+          <li
+            key={index}
+            className="animate animate__animated"
+            data-animate="animate__slideInRight"
+          >
             <div className="title">
               <h3>{v.title}</h3>
               <div

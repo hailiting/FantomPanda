@@ -3,9 +3,16 @@ import "./partfour.less";
 export default function PartFour() {
   return (
     <div className="partfour" id="Roadmap">
+      {/* <div
+        className="animate animate__animated"
+        data-animate="animate__fadeInUp"
+      > */}
       <div className="part_four_inner">
         <h2>The Roadmap</h2>
-        <div className="part10">
+        <div
+          className="part10 animate animate__animated"
+          data-animate="animate__slideInRight"
+        >
           <h3>
             <img
               src={require("../assets/four01.png")}
@@ -26,7 +33,10 @@ export default function PartFour() {
           </div>
         </div>
 
-        <div className="part25">
+        <div
+          className="part25 animate animate__animated"
+          data-animate="animate__slideInLeft"
+        >
           <h3>
             <img
               src={require("../assets/four02.png")}
@@ -47,7 +57,10 @@ export default function PartFour() {
           </div>
         </div>
 
-        <div className="part50">
+        <div
+          className="part50 animate animate__animated"
+          data-animate="animate__slideInRight"
+        >
           <h3>
             <img
               src={require("../assets/four03.png")}
@@ -63,7 +76,10 @@ export default function PartFour() {
             </p>
           </div>
         </div>
-        <div className="part75">
+        <div
+          className="part75 animate animate__animated"
+          data-animate="animate__slideInLeft"
+        >
           <h3>
             <img
               src={require("../assets/four04.png")}
@@ -78,7 +94,10 @@ export default function PartFour() {
             </p>
           </div>
         </div>
-        <div className="part100">
+        <div
+          className="part100 animate animate__animated"
+          data-animate="animate__slideInRight"
+        >
           <h3>
             <img
               src={require("../assets/four05.png")}
@@ -109,6 +128,7 @@ export default function PartFour() {
           </div>
         </div>
       </div>
+      {/* </div> */}
     </div>
   );
 }

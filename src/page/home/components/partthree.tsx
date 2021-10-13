@@ -48,46 +48,51 @@ export default function PartThree() {
   ];
   return (
     <div className="part_three" id="PandaRaces">
-      <div className="part_three_inner">
-        <h2>Panda Races</h2>
-        <ul className="tab_header">
-          {[
-            "Earthbind Spirit",
-            "Spirit Devourer",
-            "Guardian of Order",
-            "Lords",
-          ].map((v: string, index: number) => (
-            <li
-              key={index}
-              className={index === liIndex ? "onLi" : ""}
-              onClick={() => {
-                setLiIndex(index);
-              }}
-            >
-              {v}
-            </li>
-          ))}
-        </ul>
-        <div className="show_detail">
-          <div className="fl">
-            <img src={liList[liIndex].flImg} alt="races" />
-          </div>
-          <div className="fr">
-            <h4>{liList[liIndex].title}</h4>
-            {liList[liIndex].details.map((v) => (
-              <p key={v}>{v}</p>
+      <div
+        className="animate animate__animated"
+        data-animate="animate__fadeInLeft"
+      >
+        <div className="part_three_inner">
+          <h2>Panda Races</h2>
+          <ul className="tab_header">
+            {[
+              "Earthbind Spirit",
+              "Spirit Devourer",
+              "Guardian of Order",
+              "Lords",
+            ].map((v: string, index: number) => (
+              <li
+                key={index}
+                className={index === liIndex ? "onLi" : ""}
+                onClick={() => {
+                  setLiIndex(index);
+                }}
+              >
+                {v}
+              </li>
             ))}
-            <ul>
-              <li>
-                <img src={liList[liIndex].frImg01} alt="races" />
-              </li>
-              <li>
-                <img src={liList[liIndex].frImg02} alt="races" />
-              </li>
-              <li>
-                <img src={liList[liIndex].frImg03} alt="races" />
-              </li>
-            </ul>
+          </ul>
+          <div className="show_detail">
+            <div className="fl">
+              <img src={liList[liIndex].flImg} alt="races" />
+            </div>
+            <div className="fr">
+              <h4>{liList[liIndex].title}</h4>
+              {liList[liIndex].details.map((v) => (
+                <p key={v}>{v}</p>
+              ))}
+              <ul>
+                <li>
+                  <img src={liList[liIndex].frImg01} alt="races" />
+                </li>
+                <li>
+                  <img src={liList[liIndex].frImg02} alt="races" />
+                </li>
+                <li>
+                  <img src={liList[liIndex].frImg03} alt="races" />
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
       </div>

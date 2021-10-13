@@ -41,115 +41,125 @@ export default function PartOne() {
     })();
   }, [accounts]);
   return (
-    <div className="partone">
+    <div className=" partone">
       <HeaderWidget />
-      <h1>Welcome to FantomPanda</h1>
-      <h3>
-        Width 1017px Height 53px Top 298px Left 452px Blend Pass through
-        FantomPanda is a collection of randomly generated NFT characters living
-        on the Fantom blockchain. 1200 Pandas are created from over 200
-        hand-crafted traits. Each FantomPanda is 1/1 unique and can be
-        customized.
-      </h3>
-      <div className="form">
-        <h4>Mint a Panda</h4>
-        <div className="label">
-          <div className="fl">
-            <p>
-              {ERC721TotalSupply}/{ERC721Max} minted
-            </p>
+      <div
+        className="animate animate__animated"
+        data-animate="animate__fadeInUp"
+      >
+        <h1>Welcome to FantomPanda</h1>
+        <h3>
+          Width 1017px Height 53px Top 298px Left 452px Blend Pass through
+          FantomPanda is a collection of randomly generated NFT characters
+          living on the Fantom blockchain. 1200 Pandas are created from over 200
+          hand-crafted traits. Each FantomPanda is 1/1 unique and can be
+          customized.
+        </h3>
+      </div>
+      <div
+        className="animate animate__animated"
+        data-animate="animate__fadeInDown"
+      >
+        <div className="form">
+          <h4>Mint a Panda</h4>
+          <div className="label">
+            <div className="fl">
+              <p>
+                {ERC721TotalSupply}/{ERC721Max} minted
+              </p>
+            </div>
+            <div className="fr">
+              <p>
+                <i></i>
+                {+ERC721State === 1
+                  ? "PreSale"
+                  : +ERC721State === 2
+                  ? "Sale"
+                  : +ERC721State === 0
+                  ? "Coming Soon"
+                  : ""}
+              </p>
+            </div>
           </div>
-          <div className="fr">
-            <p>
-              <i></i>
-              {+ERC721State === 1
-                ? "PreSale"
-                : +ERC721State === 2
-                ? "Sale"
-                : +ERC721State === 0
-                ? "Coming Soon"
-                : ""}
-            </p>
+          <div className="form_bg"></div>
+          <div className="input">
+            <p>Quantity:</p>
+            <input
+              value={mintValue}
+              onChange={(e) => {
+                if (!isNaN(Number(e.target.value))) {
+                  setMintValue(Number(e.target.value));
+                }
+              }}
+            />
+            <p className="fr">(max. 10 per tx)</p>
           </div>
-        </div>
-        <div className="form_bg"></div>
-        <div className="input">
-          <p>Quantity:</p>
-          <input
-            value={mintValue}
-            onChange={(e) => {
-              if (!isNaN(Number(e.target.value))) {
-                setMintValue(Number(e.target.value));
+          <h5>
+            Mint Price:{" "}
+            <i>
+              {+ERC721State >= 0
+                ? `${
+                    isNaN(+ERC721Price)
+                      ? ERC721Price
+                      : +ERC721Price / Math.pow(10, 18)
+                  } FTM`
+                : "TBD"}
+            </i>
+          </h5>
+          <button
+            onClick={async () => {
+              let _price = await NFTPrice();
+              if (_price !== ERC721Price) {
+                setERC721Price(_price);
+              }
+              if (!ERC721State) {
+                Toast.show("The contract has not yet opened, so stay tuned!");
+                return false;
+              }
+              if (
+                Number(ETHBalance) * Math.pow(10, 18) <
+                Number(_price) * mintValue
+              ) {
+                Toast.show(
+                  `Insufficient balance, current balance is ${ETHBalance}, NFT price：${
+                    Number(_price) / Math.pow(10, 18)
+                  }`
+                );
+                return false;
+              }
+              if (+ERC721State > 0) {
+                if (+ERC721State > 1) {
+                  mint({
+                    numberOfTokens: `${mintValue}`,
+                    price: `${_price}`,
+                    account: account,
+                  });
+                } else {
+                  const _allow = await NFTAllow(account);
+                  if (+_allow > 0) {
+                    if (+_allow >= mintValue) {
+                      preSaleMint({
+                        numberOfTokens: `${mintValue}`,
+                        price: `${_price}`,
+                        account: account,
+                      });
+                    } else {
+                      Toast.show(`You can currently purchase ${_allow} FPDS`);
+                    }
+                  } else {
+                    Toast.show("No permission!");
+                    return false;
+                  }
+                }
+              } else {
+                Toast.show("The contract has not yet opened, so stay tuned!");
+                return false;
               }
             }}
-          />
-          <p className="fr">(max. 10 per tx)</p>
+          >
+            Mint
+          </button>
         </div>
-        <h5>
-          Mint Price:{" "}
-          <i>
-            {+ERC721State >= 0
-              ? `${
-                  isNaN(+ERC721Price)
-                    ? ERC721Price
-                    : +ERC721Price / Math.pow(10, 18)
-                } FTM`
-              : "TBD"}
-          </i>
-        </h5>
-        <button
-          onClick={async () => {
-            let _price = await NFTPrice();
-            if (_price !== ERC721Price) {
-              setERC721Price(_price);
-            }
-            if (!ERC721State) {
-              Toast.show("The contract has not yet opened, so stay tuned!");
-              return false;
-            }
-            if (
-              Number(ETHBalance) * Math.pow(10, 18) <
-              Number(_price) * mintValue
-            ) {
-              Toast.show(
-                `Insufficient balance, current balance is ${ETHBalance}, NFT price：${
-                  Number(_price) / Math.pow(10, 18)
-                }`
-              );
-              return false;
-            }
-            if (+ERC721State > 0) {
-              if (+ERC721State > 1) {
-                mint({
-                  numberOfTokens: `${mintValue}`,
-                  price: `${_price}`,
-                  account: account,
-                });
-              } else {
-                const _allow = await NFTAllow(account);
-                if (+_allow > 0) {
-                  if (+_allow >= mintValue) {
-                    preSaleMint({
-                      numberOfTokens: `${mintValue}`,
-                      price: `${_price}`,
-                      account: account,
-                    });
-                  } else {
-                    Toast.show(`You can currently purchase ${_allow} FPDS`);
-                  }
-                } else {
-                  Toast.show("No permission!");
-                  return false;
-                }
-              }
-            } else {
-              Toast.show("The contract has not yet opened, so stay tuned!");
-              return false;
-            }
-          }}
-        >
-          Mint
-        </button>
       </div>
       <div className="link">
         <a

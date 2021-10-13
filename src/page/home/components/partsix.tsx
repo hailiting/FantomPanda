@@ -2,7 +2,11 @@ import React from "react";
 import "./partsix.less";
 export default function PartSix() {
   return (
-    <div id="Team" className="partsix">
+    <div
+      id="Team"
+      className="partsix  animate animate__animated"
+      data-animate="animate__fadeInDown"
+    >
       <h2>The Team</h2>
       <ul>
         <li>
