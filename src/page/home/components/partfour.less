@@ -167,11 +167,37 @@
   .partfour .part_four_inner .part10::after,
   .partfour .part_four_inner .part50::after {
     content: "";
+    top: 20px;
     border-top-right-radius: 8px;
   }
   .partfour .part_four_inner .part25::after,
   .partfour .part_four_inner .part75::after {
     content: "";
+    top: 20px;
     border-top-left-radius: 8px;
+  }
+  .partfour .part_four_inner .border {
+    margin-bottom: 20px;
+  }
+  .partfour .part_four_inner {
+    h2 {
+      font-size: 20px;
+      line-height: 32px;
+      padding: 28px 0 10px;
+    }
+    h3 {
+      font-size: 16px;
+      line-height: 12px;
+      padding-bottom: 20px;
+      max-width: 90%;
+    }
+    .border {
+      h5,
+      & p {
+        font-weight: 500;
+        font-size: 12px;
+        line-height: 16px;
+      }
+    }
   }
 }
