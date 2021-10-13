@@ -95,7 +95,7 @@
   .part_two {
     background-size: 2560px 700px;
     height: 700px;
-    padding: 0 30px;
+    padding: 0 3%;
     .part_two_inner {
       &::after {
         content: "";
@@ -105,5 +105,36 @@
         height: 700px;
       }
     }
+  }
+}
+@media screen and (max-width: 360px) {
+  .part_two {
+    background-size: 2560px 450px;
+    height: 450px;
+    padding: 0 3%;
+    .part_two_inner {
+      &::after {
+        content: "";
+        height: 450px;
+      }
+      .fl {
+        height: 450px;
+      }
+    }
+  }
+  .part_two .part_two_inner .fl .frist {
+    top: -30px;
+  }
+  .part_two .part_two_inner .fl .second {
+    bottom: -30px;
+  }
+  .part_two .part_two_inner .fr h3 {
+    font-size: 24px;
+  }
+  .part_two .part_two_inner .fr p {
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 18px;
+    padding-bottom: 10px;
   }
 }

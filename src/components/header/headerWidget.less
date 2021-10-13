@@ -11,11 +11,11 @@
   .modal {
     .fl {
       float: left;
-      padding-left: 30px;
+      padding-left: 3%;
     }
     .fr {
       float: right;
-      padding-right: 30px;
+      padding-right: 3%;
     }
     .close {
       display: block;
@@ -58,7 +58,7 @@
     }
     .menu {
       text-align: left;
-      padding: 10px 30px;
+      padding: 10px 3%;
       a {
         display: block;
         font-size: 18px;
@@ -107,6 +107,23 @@
     .big {
       display: none;
     }
+    .samll {
+      display: block;
+    }
+  }
+}
+@media screen and (max-width: 360px) {
+  .header .samll .logo h2,
+  .header .modal .logo h2 {
+    font-size: 23px;
+  }
+  .header .samll .logo img,
+  .header .modal .logo img {
+    padding-right: 10px;
+  }
+
+  .header {
+    padding: 18px 0;
     .samll {
       display: block;
     }

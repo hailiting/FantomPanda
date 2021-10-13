@@ -127,7 +127,7 @@
 }
 @media screen and (max-width: 750px) {
   .partfour {
-    padding: 0 30px;
+    padding: 0 3%;
     .part_four_inner {
       h2 {
         font-size: 36px;
@@ -161,5 +161,17 @@
         }
       }
     }
+  }
+}
+@media screen and (max-width: 360px) {
+  .partfour .part_four_inner .part10::after,
+  .partfour .part_four_inner .part50::after {
+    content: "";
+    border-top-right-radius: 8px;
+  }
+  .partfour .part_four_inner .part25::after,
+  .partfour .part_four_inner .part75::after {
+    content: "";
+    border-top-left-radius: 8px;
   }
 }
