@@ -1,10 +1,10 @@
 .partfour {
   background: url("../assets/partfourbg.png") no-repeat center;
   background-size: 2560px 2340px;
-  height: 2340px;
+  // height: 2340px;
   overflow: hidden;
   .part_four_inner {
-    width: 1300px;
+    max-width: 1300px;
     margin: 0 auto;
     h2 {
       font-weight: 800;
@@ -18,19 +18,26 @@
       font-size: 32px;
       line-height: 38px;
       padding-bottom: 40px;
+      position: relative;
+      z-index: 2;
+      span {
+        background-color: #080e18;
+        box-shadow: 0 0 100px #000;
+      }
       img {
         display: inline-block;
         vertical-align: middle;
         width: 40px;
         height: 40px;
-        margin-right: 10px;
+        padding-right: 10px;
+        background-color: #080e18;
       }
     }
     .border {
       border: 1px solid #ffffff;
       border-radius: 24px;
-      padding: 40px;
-      width: 500px;
+      padding: 5%;
+      width: 40%;
       margin-bottom: 80px;
       h5 {
         font-weight: 500;
@@ -52,7 +59,7 @@
         position: absolute;
         top: 16px;
         right: 0;
-        width: 340px;
+        width: 34%;
         height: 380px;
         border-top: 1px dashed #ffffff;
         border-right: 1px dashed #ffffff;
@@ -63,14 +70,14 @@
       position: relative;
       text-align: right;
       .border {
-        margin-left: 700px;
+        margin-left: 50%;
       }
       &::after {
         content: "";
         position: absolute;
         top: 16px;
         left: 0;
-        width: 620px;
+        width: 46%;
         height: 380px;
         border-top: 1px dashed #ffffff;
         border-left: 1px dashed #ffffff;
@@ -96,7 +103,7 @@
       position: relative;
       text-align: right;
       .border {
-        margin-left: 700px;
+        margin-left: 50%;
       }
       &::after {
         content: "";
@@ -112,7 +119,7 @@
     }
     .part100 {
       .border {
-        width: 1300px-80px;
+        width: 90%;
       }
     }
   }

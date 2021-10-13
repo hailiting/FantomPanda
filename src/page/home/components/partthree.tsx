@@ -77,21 +77,26 @@ export default function PartThree() {
               <img src={liList[liIndex].flImg} alt="races" />
             </div>
             <div className="fr">
-              <h4>{liList[liIndex].title}</h4>
-              {liList[liIndex].details.map((v) => (
-                <p key={v}>{v}</p>
-              ))}
-              <ul>
-                <li>
-                  <img src={liList[liIndex].frImg01} alt="races" />
-                </li>
-                <li>
-                  <img src={liList[liIndex].frImg02} alt="races" />
-                </li>
-                <li>
-                  <img src={liList[liIndex].frImg03} alt="races" />
-                </li>
-              </ul>
+              <div
+                className="animate animate__animated"
+                data-animate="animate__bounceInLeft"
+              >
+                <h4>{liList[liIndex].title}</h4>
+                {liList[liIndex].details.map((v) => (
+                  <p key={v}>{v}</p>
+                ))}
+                <ul>
+                  <li>
+                    <img src={liList[liIndex].frImg01} alt="races" />
+                  </li>
+                  <li>
+                    <img src={liList[liIndex].frImg02} alt="races" />
+                  </li>
+                  <li>
+                    <img src={liList[liIndex].frImg03} alt="races" />
+                  </li>
+                </ul>
+              </div>
             </div>
           </div>
         </div>

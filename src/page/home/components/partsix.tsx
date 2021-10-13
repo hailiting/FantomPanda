@@ -4,7 +4,7 @@ export default function PartSix() {
   return (
     <div
       id="Team"
-      className="partsix  animate animate__animated"
+      className="partsix_inner  animate animate__animated"
       data-animate="animate__fadeInDown"
     >
       <h2>The Team</h2>

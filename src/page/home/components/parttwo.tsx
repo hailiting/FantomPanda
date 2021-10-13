@@ -3,42 +3,45 @@ import "./parttwo.less";
 export default function PartTwo() {
   return (
     <div className="part_two" id="Story">
-      <div
-        className="animate animate__animated"
-        data-animate="animate__fadeInRight"
-      >
-        <div className="part_two_inner">
-          <div className="fl">
-            <ul className="frist">
-              <li className="shadow">
-                <img src={require("../assets/01.png")} alt="FantomPanda" />
-              </li>
-              <li>
-                <img src={require("../assets/02.png")} alt="FantomPanda" />
-              </li>
-              <li>
-                <img src={require("../assets/03.png")} alt="FantomPanda" />
-              </li>
-              <li>
-                <img src={require("../assets/04.png")} alt="FantomPanda" />
-              </li>
-            </ul>
-            <ul className="second">
-              <li>
-                <img src={require("../assets/05.png")} alt="FantomPanda" />
-              </li>
-              <li>
-                <img src={require("../assets/06.png")} alt="FantomPanda" />
-              </li>
-              <li>
-                <img src={require("../assets/07.png")} alt="FantomPanda" />
-              </li>
-              <li className="shadow">
-                <img src={require("../assets/08.png")} alt="FantomPanda" />
-              </li>
-            </ul>
-          </div>
-          <div className="fr">
+      <div className="part_two_inner">
+        <div
+          className="fl animate animate__animated"
+          data-animate="animate__bounceInRight"
+        >
+          <ul className="frist">
+            <li className="shadow">
+              <img src={require("../assets/01.png")} alt="FantomPanda" />
+            </li>
+            <li>
+              <img src={require("../assets/02.png")} alt="FantomPanda" />
+            </li>
+            <li>
+              <img src={require("../assets/03.png")} alt="FantomPanda" />
+            </li>
+            <li>
+              <img src={require("../assets/04.png")} alt="FantomPanda" />
+            </li>
+          </ul>
+          <ul className="second">
+            <li>
+              <img src={require("../assets/05.png")} alt="FantomPanda" />
+            </li>
+            <li>
+              <img src={require("../assets/06.png")} alt="FantomPanda" />
+            </li>
+            <li>
+              <img src={require("../assets/07.png")} alt="FantomPanda" />
+            </li>
+            <li className="shadow">
+              <img src={require("../assets/08.png")} alt="FantomPanda" />
+            </li>
+          </ul>
+        </div>
+        <div className="fr">
+          <div
+            className="animate animate__animated"
+            data-animate="animate__fadeInRight"
+          >
             <h3>The Story</h3>
             <p>
               In the endless Fantom universe, many elven planes are shining with

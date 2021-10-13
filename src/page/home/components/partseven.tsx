@@ -66,7 +66,7 @@ export default function PartSeven() {
     },
   ];
   return (
-    <div id="FAQ" className="partseven">
+    <div id="FAQ" className="partseven_inner">
       <h2>Time to get the FAQs</h2>
       <ul>
         {liList.map((v: LiListItem, index: number) => (
