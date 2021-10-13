@@ -23,6 +23,7 @@
       span {
         background-color: #080e18;
         box-shadow: 0 0 100px #000;
+        padding-right: 20px;
       }
       img {
         display: inline-block;
@@ -39,6 +40,7 @@
       padding: 5%;
       width: 40%;
       margin-bottom: 80px;
+
       h5 {
         font-weight: 500;
         font-size: 22px;
@@ -53,14 +55,14 @@
     }
     .part10 {
       position: relative;
-      width: 920px;
       &::after {
         content: "";
         position: absolute;
         top: 16px;
-        right: 0;
+        right: 18%;
         width: 34%;
-        height: 380px;
+        height: 110%;
+        // height: 380px;
         border-top: 1px dashed #ffffff;
         border-right: 1px dashed #ffffff;
         border-top-right-radius: 24px;
@@ -78,7 +80,7 @@
         top: 16px;
         left: 0;
         width: 46%;
-        height: 380px;
+        height: 110%;
         border-top: 1px dashed #ffffff;
         border-left: 1px dashed #ffffff;
         border-top-left-radius: 24px;
@@ -86,14 +88,13 @@
     }
     .part50 {
       position: relative;
-      width: 920px;
       &::after {
         content: "";
         position: absolute;
         top: 16px;
-        right: 0;
-        width: 220px;
-        height: 280px;
+        right: 18%;
+        width: 24%;
+        height: 110%;
         border-top: 1px dashed #ffffff;
         border-right: 1px dashed #ffffff;
         border-top-right-radius: 24px;
@@ -110,8 +111,8 @@
         position: absolute;
         top: 16px;
         left: 0;
-        width: 680px;
-        height: 280px;
+        width: 24%;
+        height: 110%;
         border-top: 1px dashed #ffffff;
         border-left: 1px dashed #ffffff;
         border-top-left-radius: 24px;
@@ -120,6 +121,44 @@
     .part100 {
       .border {
         width: 90%;
+      }
+    }
+  }
+}
+@media screen and (max-width: 750px) {
+  .partfour {
+    padding: 0 30px;
+    .part_four_inner {
+      h2 {
+        font-size: 36px;
+        line-height: 42px;
+        padding: 48px 0 32px;
+      }
+      h3 {
+        font-weight: 800;
+        font-size: 18px;
+      }
+      .border {
+        padding: 3%;
+        width: 50%;
+        border-radius: 16px;
+        h5,
+        & p {
+          font-weight: 500;
+          font-size: 14px;
+          line-height: 16px;
+        }
+      }
+      .part25,
+      & .part75 {
+        .border {
+          margin-left: 45%;
+        }
+      }
+      .part100 {
+        .border {
+          width: 94%;
+        }
       }
     }
   }

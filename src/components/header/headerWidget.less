@@ -2,27 +2,113 @@
 .header {
   padding: 26px 0;
   text-align: center;
-  a {
-    display: inline-block;
-    vertical-align: middle;
-    padding: 0 30px;
-    transition: all 0.3s ease;
-    font-size: 18px;
-    font-family: "Rokkitt", serif;
-    &:hover {
-      opacity: 0.8;
+  clear: both;
+  overflow: hidden;
+  .samll {
+    display: none;
+  }
+  .samll,
+  .modal {
+    .fl {
+      float: left;
+      padding-left: 30px;
     }
-    img {
+    .fr {
+      float: right;
+      padding-right: 30px;
+    }
+    .close {
+      display: block;
+      width: 40px;
+    }
+    .logo {
       display: inline-block;
       vertical-align: middle;
-      width: 48px;
-      padding-right: 20px;
+      transition: all 0.3s ease;
+      font-size: 18px;
+      font-family: "Rokkitt", serif;
+      &:hover {
+        opacity: 0.8;
+      }
+      img {
+        display: inline-block;
+        vertical-align: middle;
+        width: 48px;
+        padding-right: 20px;
+      }
+      h2 {
+        display: inline-block;
+        vertical-align: middle;
+        font-size: 28px;
+        font-weight: 800;
+      }
     }
-    h2 {
+  }
+  .modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 99;
+    padding: 26px 0;
+    background-color: rgba(0, 0, 0, 0.9);
+    .clean {
+      clear: both;
+      overflow: hidden;
+    }
+    .menu {
+      text-align: left;
+      padding: 10px 30px;
+      a {
+        display: block;
+        font-size: 18px;
+        line-height: 64px;
+        height: 64px;
+        font-weight: 800;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        &:first-child {
+          border-top: 1px solid rgba(255, 255, 255, 0.2);
+        }
+      }
+    }
+  }
+  .big {
+    display: block;
+    a {
       display: inline-block;
       vertical-align: middle;
-      font-size: 28px;
-      font-weight: 800;
+      padding: 0 30px;
+      transition: all 0.3s ease;
+      font-size: 18px;
+      font-family: "Rokkitt", serif;
+      &:hover {
+        opacity: 0.8;
+      }
+      img {
+        display: inline-block;
+        vertical-align: middle;
+        width: 48px;
+        padding-right: 20px;
+      }
+      h2 {
+        display: inline-block;
+        vertical-align: middle;
+        font-size: 28px;
+        font-weight: 800;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 750px) {
+  .header {
+    padding: 26px 0;
+    text-align: center;
+    .big {
+      display: none;
+    }
+    .samll {
+      display: block;
     }
   }
 }

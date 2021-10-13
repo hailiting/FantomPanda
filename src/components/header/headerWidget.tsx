@@ -1,31 +1,48 @@
-import React from "react";
-// import { Link } from "react-router-dom";
-import config from "../../config/index";
+import React, { useState } from "react";
 import "./headerWidget.less";
+import Logo from "./components/logo";
+import Menu from "./components/menu";
 function HeaderWidget() {
+  const [showModal, setShowModal] = useState(false);
   return (
     <div className="header">
-      <div className="headerWidget">
-        <a href={config.preLink + "/"} title="0xFantomPanda">
-          <img src={require("./img/logo.svg")} alt="logo" />
-          <h2>FantomPandas</h2>
-        </a>
-        <a href="#Story" title="Story">
-          Story
-        </a>
-        <a href="#PandaRaces" title="Panda Races">
-          Panda Races
-        </a>
-        <a href="#Roadmap" title="Roadmap">
-          Roadmap
-        </a>
-        <a href="#Team" title="Team">
-          Team
-        </a>
-        <a href="#FAQ" title="FAQ">
-          FAQ
-        </a>
+      <div className="headerWidget big">
+        <Logo />
+        <Menu />
       </div>
+      <div className="headerWidget samll">
+        <div className="fl">
+          <Logo />
+        </div>
+        <div className="fr">
+          <img
+            className="close"
+            onClick={() => setShowModal(!showModal)}
+            src={require("./img/menu.png")}
+            alt="logo"
+          />
+        </div>
+      </div>
+      {showModal ? (
+        <div className="modal">
+          <div className="clean">
+            <div className="fl">
+              <Logo />
+            </div>
+            <div className="fr">
+              <img
+                onClick={() => setShowModal(!showModal)}
+                className="close"
+                src={require("./img/close.png")}
+                alt="logo"
+              />
+            </div>
+          </div>
+          <div className="menu" onClick={() => setShowModal(!showModal)}>
+            <Menu />
+          </div>
+        </div>
+      ) : null}
     </div>
   );
 }

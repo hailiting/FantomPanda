@@ -18,7 +18,7 @@ export default function PartFour() {
               src={require("../assets/four01.png")}
               alt="10% Sold ----- Tim Allen's obsession"
             />
-            <span> 10% Sold ----- </span>Tim Allen's obsession
+            <span> 10% Sold ----- Tim Allen's obsession</span>
           </h3>
           <div className="border">
             <h5>"DON'T TOUCH IT !" ---- Tim Allen</h5>
@@ -42,7 +42,7 @@ export default function PartFour() {
               src={require("../assets/four02.png")}
               alt="25% Sold ---- The gifts from the community"
             />
-            <span>25% Sold ---- </span>The gifts from the community
+            <span>25% Sold ---- The gifts from the community</span>
           </h3>
           <div className="border">
             <p>
@@ -66,7 +66,7 @@ export default function PartFour() {
               src={require("../assets/four03.png")}
               alt="50% Sold ---- Some tokens and the next NFT"
             />
-            <span> 50% Sold ---- </span>Some tokens and the next NFT
+            <span> 50% Sold ---- Some tokens and the next NFT</span>
           </h3>
           <div className="border">
             <p>
@@ -85,7 +85,7 @@ export default function PartFour() {
               src={require("../assets/four04.png")}
               alt="75% Sold ---- Embrace Defi and Token"
             />
-            <span>75% Sold ---- </span>Embrace Defi and Token
+            <span>75% Sold ---- Embrace Defi and Token</span>
           </h3>
           <div className="border">
             <p>
