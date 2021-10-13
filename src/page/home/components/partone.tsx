@@ -41,7 +41,7 @@ export default function PartOne() {
     })();
   }, [accounts]);
   return (
-    <div className=" partone">
+    <div className="partone">
       <HeaderWidget />
       <div
         className="animate animate__animated"
