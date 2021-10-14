@@ -128,7 +128,7 @@ export default function PartOne() {
                 return false;
               }
 
-              if (+mintValue >= 10 && mintValue < 0) {
+              if (+mintValue >= 10 || mintValue < 0) {
                 Toast.show(`You can currently purchase 9 FPDS`);
                 return false;
               }
