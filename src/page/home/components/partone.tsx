@@ -127,6 +127,12 @@ export default function PartOne() {
                 );
                 return false;
               }
+
+              if (+mintValue >= 10 && mintValue < 0) {
+                Toast.show(`You can currently purchase 9 FPDS`);
+                return false;
+              }
+
               if (+ERC721State > 0) {
                 if (+ERC721State > 1) {
                   mint({
@@ -137,14 +143,16 @@ export default function PartOne() {
                 } else {
                   const _allow = await NFTAllow(account);
                   if (+_allow > 0) {
-                    if (+_allow >= mintValue) {
+                    if (+_allow > mintValue) {
                       preSaleMint({
                         numberOfTokens: `${mintValue}`,
                         price: `${_price}`,
                         account: account,
                       });
                     } else {
-                      Toast.show(`You can currently purchase ${_allow} FPDS`);
+                      Toast.show(
+                        `You can currently purchase ${+_allow - 1} FPDS`
+                      );
                     }
                   } else {
                     Toast.show("No permission!");
